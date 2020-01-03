@@ -6,12 +6,12 @@
  * @param object anchor
  * @param int topOffset
  */
-function moveImg(elm, anchor, topOffset = 0) {
+function moveImg(elm, anchor, imgSize, topOffset = 0) {
 	let anchorPos = anchor.position();
 	$(elm).css({
 		"position": "absolute",
-		"left": anchorPos.left + 32,
-		"top": anchorPos.top + 32 + topOffset
+		"left": anchorPos.left + (imgSize / 2),
+		"top": anchorPos.top + (imgSize / 2) + topOffset
 	});
 }
 
@@ -46,6 +46,20 @@ function switchImg(elm, folder, items = [], preventTurnOff = false) {
 }
 
 $(document).ready(function() {
+	var baseImgSizes = {
+		"md": 32,
+		"lg": 48,
+		"xl": 64
+	};
+let selectedSize = "lg";
+let selectedSizeNum = baseImgSizes[selectedSize];
+
+
+$(".itemImg").addClass("itemImg_" + selectedSize);
+$(".itemDungeon").addClass("itemDungeon_" + selectedSize);
+$(".itemMedallion").addClass("itemMedallion_" + selectedSize);
+
+
 	let imgOvers = {
 		"dungeon02": "boss02",
 		"dungeon12": "boss12",
@@ -65,16 +79,17 @@ $(document).ready(function() {
 		let anchor = $("#" + imgOvers[overIds[i]]);
 		let topOffset = 0;
 		if (overIds[i].substr(0, 9) === "medallion") {
-			topOffset -= 32;
+			topOffset -= (selectedSizeNum / 2);
 		}
-		moveImg($("#" + overIds[i])[0], anchor, topOffset);
+		moveImg($("#" + overIds[i])[0], anchor, selectedSizeNum, topOffset);
 	}
-
-	$(".itemImg").click(function() {
+	
+	let clickFunc = function() {
 		let thisSrc = $(this).attr("src");
 		let parts = thisSrc.split("/");
 		let folder = parts[1];
 		let id = parts[2].replace(".png", "");
+		
 		if ($(this).hasClass("itemSword")) {
 			switchImg(this, "zelda3", ["sword1", "sword2", "sword3", "sword4"]);
 		} else if ($(this).hasClass("itemDungeon")) {
@@ -86,33 +101,52 @@ $(document).ready(function() {
 		} else {
 			switchImg(this, folder, [id]);
 		}
-	});
+	};
+
+	$(".itemImg").click(clickFunc);
+	$(".itemDungeon").click(clickFunc);
+	$(".itemMedallion").click(clickFunc);
 });
 </script>
 <style type="text/css">
-.itemImg {
-	width: 64px;
-	height: 64px;
-	opacity: 100%;
-}
 .itemOff {
 	opacity: 35%;
-}
-.itemDungeon {
-	width: 32px;
-	height: 32px;
-	opacity: 100%
-}
-.itemMedallion {
-	width: 32px;
-	height: 32px;
-	opacity: 100%
+	min-width: 32px;
 }
 div {
 	display: inline;
 }
 body {
 	background-color: #000;
+}
+
+/* variable styles */
+
+.itemImg_md {
+	width: 32px;
+	height: 32px;
+}
+.itemDungeon_md, .itemMedallion_md {
+	width: 16px;
+	height: 16px;
+}
+
+.itemImg_lg {
+	width: 48px;
+	height: 48px;
+}
+.itemDungeon_lg, .itemMedallion_lg {
+	width: 24px;
+	height: 24px;
+}
+
+.itemImg_xl {
+	width: 64px;
+	height: 64px;
+}
+.itemDungeon_xl, .itemMedallion_xl {
+	width: 32px;
+	height: 32px;
 }
 </style>
 </head><body>
@@ -147,28 +181,28 @@ body {
 <img class="itemImg itemOff" src="images/zelda3/mirror.png"></img>
 <br />
 <img id="boss02" class="itemImg itemOff" src="images/zelda3/boss02.png"></img>
-<img id="dungeon02" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon02" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss12" class="itemImg itemOff" src="images/zelda3/boss12.png"></img>
-<img id="dungeon12" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon12" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss22" class="itemImg itemOff" src="images/zelda3/boss22.png"></img>
-<img id="dungeon22" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon22" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss32" class="itemImg itemOff" src="images/zelda3/boss32.png"></img>
-<img id="dungeon32" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon32" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss42" class="itemImg itemOff" src="images/zelda3/boss42.png"></img>
-<img id="dungeon42" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon42" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <br />
 <img id="boss52" class="itemImg itemOff" src="images/zelda3/boss52.png"></img>
-<img id="dungeon52" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon52" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss62" class="itemImg itemOff" src="images/zelda3/boss62.png"></img>
-<img id="dungeon62" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon62" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss72" class="itemImg itemOff" src="images/zelda3/boss72.png"></img>
-<img id="dungeon72" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="dungeon72" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss82" class="itemImg itemOff" src="images/zelda3/boss82.png"></img>
-<img id="medallion82" class="itemImg itemMedallion" src="images/zelda3/medallion0.png"></img>
-<img id="dungeon82" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="medallion82" class="itemMedallion" src="images/zelda3/medallion0.png"></img>
+<img id="dungeon82" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <img id="boss92" class="itemImg itemOff" src="images/zelda3/boss92.png"></img>
-<img id="medallion92" class="itemImg itemMedallion" src="images/zelda3/medallion0.png"></img>
-<img id="dungeon92" class="itemImg itemDungeon" src="images/zelda3/dungeon0.png"></img>
+<img id="medallion92" class="itemMedallion" src="images/zelda3/medallion0.png"></img>
+<img id="dungeon92" class="itemDungeon" src="images/zelda3/dungeon0.png"></img>
 <br/>
 <img class="itemImg itemOff" src="images/zelda3/boss112.png"></img>
 <img class="itemImg itemOff" src="images/zelda3/boss122.png"></img>
