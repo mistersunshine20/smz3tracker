@@ -46,19 +46,13 @@ function switchImg(elm, folder, items = [], preventTurnOff = false) {
 }
 
 $(document).ready(function() {
-	var baseImgSizes = {
-		"md": 32,
-		"lg": 48,
-		"xl": 64
-	};
-
-	let url = new URL(window.location.href);
-	let selectedSize = url.searchParams.get("selectedSize") || "lg";
-	let selectedSizeNum = baseImgSizes[selectedSize];
-
-	$(".itemImg").addClass("itemImg_" + selectedSize);
-	$(".itemDungeon").addClass("itemDungeon_" + selectedSize);
-	$(".itemMedallion").addClass("itemMedallion_" + selectedSize);
+// 	var baseImgSizes = {
+// 		"md": 32,
+// 		"lg": 48,
+// 		"xl": 64
+// 	};
+// use window size to determine selectedsizenum: < 336 = 32, < 448 = 48, else 64
+	let selectedSizeNum = 64;
 
 	let imgOvers = {
 		"dungeon02": "boss02",
@@ -126,35 +120,42 @@ a {
 
 /* variable styles */
 
-.itemImg_md {
-	width: 32px;
-	height: 32px;
-}
-.itemDungeon_md, .itemMedallion_md {
-	width: 16px;
-	height: 16px;
-}
-
-.itemImg_lg {
-	width: 48px;
-	height: 48px;
-}
-.itemDungeon_lg, .itemMedallion_lg {
-	width: 24px;
-	height: 24px;
+@media only screen and (max-width: 335px) {
+	.itemImg {
+		width: 32px;
+		height: 32px;
+	}
+	.itemDungeon, .itemMedallion {
+		width: 16px;
+		height: 16px;
+	}
 }
 
-.itemImg_xl {
-	width: 64px;
-	height: 64px;
+@media only screen and (max-width: 447px) {
+	.itemImg {
+		width: 48px;
+		height: 48px;
+	}
+	.itemDungeon, .itemMedallion {
+		width: 24px;
+		height: 24px;
+	}
 }
-.itemDungeon_xl, .itemMedallion_xl {
-	width: 32px;
-	height: 32px;
+
+@media only screen and (min-width: 448px) {
+	.itemImg {
+		width: 64px;
+		height: 64px;
+	}
+	.itemDungeon, .itemMedallion {
+		width: 32px;
+		height: 32px;
+	}
 }
 
 </style>
 </head><body>
+<p>experiment with responsive web design</p>
 <a href="index.html?selectedSize=md">md</a> | <a href="index.html?selectedSize=lg">lg</a> | <a href="index.html?selectedSize=xl">xl</a>
 <br/>
 <img class="itemImg itemOff" src="images/zelda3/moonpearl.png"></img>
