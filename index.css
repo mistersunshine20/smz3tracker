@@ -1,0 +1,57 @@
+.itemOff {
+	min-width: 32px;
+	opacity: 0.35;
+}
+div {
+	display: inline;
+}
+
+/* variable styles */
+
+.itemImg_md {
+	width: 32px;
+	height: 32px;
+}
+.itemDungeon_md, .itemMedallion_md {
+	width: 16px;
+	height: 16px;
+}
+
+.itemImg_lg {
+	width: 48px;
+	height: 48px;
+}
+
+.itemDungeon_lg, .itemMedallion_lg {
+	width: 24px;
+	height: 24px;
+}
+
+.itemImg_xl {
+	width: 64px;
+	height: 64px;
+}
+
+.itemDungeon_xl, .itemMedallion_xl {
+	width: 32px;
+	height: 32px;
+}
+
+/* page decoration */
+
+body {
+	background-color: #000;
+	color: #aaa;
+	font-family: verdana, sans-serif;
+}
+
+a {
+	font-family: verdana, sans-serif;
+	color: #ccc;
+}
+
+.simlink {
+	font-family: verdana, sans-serif;
+	color: #ccc;
+	text-decoration: underline;
+}
